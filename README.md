@@ -4,31 +4,35 @@ This is a model for an advanced JSON server which can actually handle nested req
 
 &nbsp;
 ## Installation
-You can install JSON Server either as a pnpm or npm package:
+Install the required packages either with npm or pnpm:
 
 ```bash
-pnpm install --save json-server
+pnpm i
+
+# OR
+
+npm i
 ```
 
-&nbsp;
-## Methods
-
-* GET
-* POST
-* PATCH
-* PUT
-* DELETE
+This will install `json-server` and `nodemon` which will allow auto-reload on changes to the dev-server.
 
 &nbsp;
 ## Start
+If the routes are final and you're ready to work on the front end project, run:
 
 ```bash
 npm start
 ```
 
+If you need to debug the routes, use:
+
+```bash
+npm run dev
+```
+
 &nbsp;
 ## Adding Routes
-To add routes, add a line inside `./src/db.json` detailing the incoming request path and the file that this should then be directed to (you will need to create a new JSON file also).
+To add routes, add a line inside `./src/db.json` detailing the incoming request path and the file that this should then be directed to (you will need to create a new JSON file also). To make sure you can access open routes (e.g. `/api/v1/posts`) as well as queried data (e.g. `/api/v1/posts/:id`), you should always include two lines, one open, one with an `:id` path variable. Refer to the `./src/db.js` file for examples.
 
 Note that the key should be the exact URL coming in (must start with `/`) and the value should be a single word with a `/` before it.
 
@@ -65,6 +69,7 @@ server.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
 ```
+
 >Note: The order of the server.use statements **is important**, if you don't include `server.use(jsonServer.rewriter(getRoutes()));` before `server.use(router);`, the router won't work.
 
 
@@ -89,4 +94,66 @@ function getRouteObjects() {
 }
 
 module.exports = { getRoutes, getRouteObjects }
+```
+
+&nbsp;
+## API Test Calls
+The following methods are available on the JSON server
+* GET
+* POST
+* PATCH
+* PUT
+* DELETE
+
+Below are provided some example API calls which you can use on the test data to experiment/confirm the server is working. All requests have been line-broken for easier reading.
+
+&nbsp;
+### GET
+```bash
+# test data by id (1)
+curl --location --request GET 'http://localhost:1234/api/v1/test/1' \
+--header 'Content-Type: application/json'
+
+# all test data 
+curl --location --request GET 'http://localhost:1234/api/v1/test' \
+--header 'Content-Type: application/json'
+```
+
+&nbsp;
+### POST
+```bash
+curl --location --request POST 'http://localhost:1234/api/v1/test' \
+--header 'conten: application/json' \
+--header 'Content-Type: application/json' \
+--data-raw '  { 
+    "content": "Hello World Again!"
+  }'
+```
+
+&nbsp;
+### PATCH
+```bash
+curl --location --request PATCH 'http://localhost:1234/api/v1/test/2' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "content": "Environmentally Challenged!",
+    "date": "2020-06-24T15:54:38.172Z"
+}'
+```
+
+&nbsp;
+### PUT
+```bash
+curl --location --request PUT 'http://localhost:1234/api/v1/test/2' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "content": "Hello World - This was a PUT request!"
+}'
+```
+
+&nbsp;
+### DELETE
+```bash
+curl --location --request DELETE 'http://localhost:1234/api/v1/test/3' \
+--header 'Content-Type: application/json'
 ```
