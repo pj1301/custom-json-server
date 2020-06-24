@@ -56,6 +56,8 @@ const jsonServer = require('json-server');
 const { getRoutes, getRouteObjects } = require('./db');
 
 const router = jsonServer.router(getRouteObjects());
+// const router = jsonServer.router(getRouteObjects(), {foreignKeySuffix: '_id'});
+// router.db._.id = '_id';
 const middlewares = jsonServer.defaults();
 const port = 1234;
 const server = jsonServer.create();
@@ -70,7 +72,9 @@ server.listen(port, () => {
 });
 ```
 
->Note: The order of the server.use statements **is important**, if you don't include `server.use(jsonServer.rewriter(getRoutes()));` before `server.use(router);`, the router won't work.
+>Note: The order of the server.use statements **is important**, if you don't include `server.use(jsonServer.rewriter(getRoutes()));` before `server.use(router);`, the router won't work. 
+
+If you are/prefer working with Mongo IDs, you can set the `id` field to default as `_id`. Simply uncomment the router and router.db lines and comment out the original router.
 
 
 &nbsp;
