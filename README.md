@@ -123,7 +123,6 @@ curl --location --request GET 'http://localhost:1234/api/v1/test' \
 ### POST
 ```bash
 curl --location --request POST 'http://localhost:1234/api/v1/test' \
---header 'conten: application/json' \
 --header 'Content-Type: application/json' \
 --data-raw '  { 
     "content": "Hello World Again!"
