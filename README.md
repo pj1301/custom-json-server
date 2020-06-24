@@ -47,7 +47,7 @@ At present, the server doesn't support lasting changes to the data - as any chan
 &nbsp;
 ## Structure
 
-### Main File (Don't alter)
+### Main File
 This file does not need to be edited for the server to work, even when adding new routes. The only time you may wish to edit is if you want to include additional middleware.
 ```js
 // ./src/server.js
@@ -78,7 +78,7 @@ If you are/prefer working with Mongo IDs, you can set the `id` field to default 
 
 
 &nbsp;
-### Route File - (Change to accommodate new routes)
+### Route File 
 This file will need to be edited as new routes are defined. You should first create the new databse JSON file, import it with a require statement and add the constant to the list of routeObjects. Finally, specify the route that should 
 
 ```js
