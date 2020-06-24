@@ -74,8 +74,7 @@ server.listen(port, () => {
 
 >Note: The order of the server.use statements **is important**, if you don't include `server.use(jsonServer.rewriter(getRoutes()));` before `server.use(router);`, the router won't work. 
 
-If you are/prefer working with Mongo IDs, you can set the `id` field to default as `_id`. Simply uncomment the router and router.db lines and comment out the original router.
-
+If you are/prefer working with Mongo IDs, you can set the `id` field to default as `_id`. Simply uncomment the router and router.db lines and comment out the original router. **Make sure you update the db.js file to use _id as well!!!**
 
 &nbsp;
 ### Route File 
@@ -86,8 +85,10 @@ const test = require('./dbRouteData/test.json');
 
 function getRoutes() {
   return {
-    "/api/v1/test": "/test"
+    "/api/v1/test": "/test",
+    "/api/v1/test/:id": "/test/:id"
     // Add new paths here - note that there must be a '/' at the beginning of the key and value, and the value should be a single word which matches the variable name you used to import the related database file.
+    // if server.js defines the foreign key as _id, then :id should be :_id
   };
 }
 
