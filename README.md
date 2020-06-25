@@ -86,7 +86,8 @@ const test = require('./dbRouteData/test.json');
 function getRoutes() {
   return {
     "/api/v1/test": "/test",
-    "/api/v1/test/:id": "/test/:id"
+    "/api/v1/test/:id": "/test/:id",
+    "/api/v1/test/urls\\?id=:id": "/test\?id=:id"
     // Add new paths here - note that there must be a '/' at the beginning of the key and value, and the value should be a single word which matches the variable name you used to import the related database file.
     // if server.js defines the foreign key as _id, then :id should be :_id
   };
@@ -117,6 +118,10 @@ Below are provided some example API calls which you can use on the test data to 
 ```bash
 # test data by id (1)
 curl --location --request GET 'http://localhost:1234/api/v1/test/1' \
+--header 'Content-Type: application/json'
+
+# multiple test data items by their ids
+curl --location --request GET 'http://localhost:1234/api/v1/test?id=2&id=3' \
 --header 'Content-Type: application/json'
 
 # all test data 
